@@ -2,7 +2,7 @@
 layout: post
 title:  "幸福像花儿一样"
 date: 2017-11-24 10:06:26 +0800
-categories: Life, Blog
+categories: Life
 ---
 
 <h6 align="center">
