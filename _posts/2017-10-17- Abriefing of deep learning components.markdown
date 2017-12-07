@@ -88,14 +88,14 @@ Batch，中文为批，一个batch由若干条数据构成。batch是进行网�
 
 >举个例子
 >训练集有1000个样本，batchsize=10，那么： 
-训练完整个样本集需要： 
-100次iteration，1次epoch。
-具体的计算公式为： 
-one epoch = numbers of iterations = N = 训练样本的数量/batch_size
+>训练完整个样本集需要： 
+>100次iteration，1次epoch。
+>具体的计算公式为： 
+>one epoch = numbers of iterations = N = 训练样本的数量/batch_size
 
 >注：
-在LSTM中我们还会遇到一个``seq_length``,其实 
-``batch_size = num_steps * seq_length``
+>在LSTM中我们还会遇到一个``seq_length``,其实 
+>``batch_size = num_steps * seq_length``
 
 <h3 id="训练误差与测试误差">7. 训练误差与测试误差</h3>
 
@@ -158,14 +158,14 @@ one epoch = numbers of iterations = N = 训练样本的数量/batch_size
 
 #### 卷积定理
 要理解卷积，不得不提convolution theorem, 它将时域和空域上的复杂卷积对应到了频域中的元素间简单的乘积。这个定理非常强大，在许多科学领域中得到了广泛应用。卷积定理也是快速傅里叶变换算法被称为 20 世纪最重要的算法之一的一个原因。
-```math
-h(x) = f \otimes g=\int_{-\infty}^{\infty}f(x-u)g(u)du = \mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|\mathcal{F}|g| \right)
 
-feature map = input\otimes kernel = \sum_{y=0}^{columns}\left(\sum_{x=0}^{rows}input(x-a, y-b)kernel(x,y) \right)=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|input|\mathcal{F}|kernel|\right)
-```
+$$h(x) = f \otimes g=\int_{-\infty}^{\infty}f(x-u)g(u)du = \mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|\mathcal{F}|g| \right)$$
+
+$$feature map = input\otimes kernel = \sum_{y=0}^{columns}\left(\sum_{x=0}^{rows}input(x-a, y-b)kernel(x,y) \right)=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|input|\mathcal{F}|kernel|\right)$$
+
 第一个等式是一维连续域上两个连续函数的卷积；第二个等式是二维离散域（图像）上的卷积.
 
-> `$\otimes$`指的是卷积，`$\mathcal{F}$`指的是傅立叶变换, `$\mathcal{F}^{-1}$`指的是傅立叶逆变换，`$\sqrt{2\pi}$`是一个正规化常量。这里的**离散**指的是数据由有限个变量构成“像素”；一维指的是一维的“时间”，图像则是二维的，视频则是三维的。
+> $\otimes$指的是卷积，$\mathcal{F}$指的是傅立叶变换, $\mathcal{F}^{-1}$指的是傅立叶逆变换，$\sqrt{2\pi}$是一个正规化常量。这里的**离散**指的是数据由有限个变量构成“像素”；一维指的是一维的“时间”，图像则是二维的，视频则是三维的。
 
 #### 快速傅立叶变换
 快速傅里叶变换是一种将时域和空域中的数据转换到频域上去的算法。**傅里叶变换用一些正弦和余弦波的和来表示原函数**。必须注意的是，傅里叶变换一般涉及到复数，也就是说一个实数被变换为一个具有实部和虚部的复数。通常虚部只在一部分领域有用，比如将频域变换回到时域和空域上；而在这篇博客里会被忽略掉。你可以在下面看到一个信号（一个以时间为参数的有周期的函数通常称为信号）是如何被傅里叶变换的：
@@ -231,13 +231,12 @@ feature map = input\otimes kernel = \sum_{y=0}^{columns}\left(\sum_{x=0}^{rows}i
 
 卷积与互相关紧密相连。互相关是一种衡量小段信息（几秒钟的音乐片段）与大段信息（整首音乐）之间相似度的一种手段（youtube 使用了类似的技术检测侵权视频）。
 
-```math
-convoluted\ x = f \otimes g= \int_{-\infty}^{\infty}f(x-u)g(u)du=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|\mathcal{F}|g| \right)
+$$convoluted\ x = f \otimes g= \int_{-\infty}^{\infty}f(x-u)g(u)du=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|\mathcal{F}|g| \right)$$
 
-cross-correlated \ x=f*g=\int_{-\infty}^{\infty}f(x-u)g(u)^{*}du=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|(\mathcal{F}|g|)^{*} \right)
+$$cross-correlated \ x=f*g=\int_{-\infty}^{\infty}f(x-u)g(u)^{*}du=\mathcal{F}^{-1}\left(\sqrt{2\pi}\mathcal{F}|f|(\mathcal{F}|g|)^{*} \right)$$
 
-f(x)*g(x) = f^{*}(-x)\otimes g(x)
-```
+$$f(x)*g(x) = f^{*}(-x)\otimes g(x)$$
+
 虽然互相关的公式看起来很难，但通过如下手段我们可以马上看到它与深度学习的联系。在图片搜索中，我们简单地将 query 图片上下颠倒作为核然后通过卷积进行互相关检验，结果会得到一张有一个或多个亮点的图片，亮点所在的位置就是人脸所在的位置。
 
 ![image](https://www.jiqizhixin.com/data/upload/ueditor/20170328/58da2e624d8e9.jpg)
@@ -258,12 +257,11 @@ f(x)*g(x) = f^{*}(-x)\otimes g(x)
 
 > 注：我们可以将这些统计模型写成卷积的形式，然后深度学习中的卷积就可以解释为产生局部 ARIMA 特征的函数了。这两种形式并不完全重合，使用需谨慎。
 
-```math
-autoregressed\ x=C(kernel) + white noise \otimes kernel
+$$autoregressed\ x=C(kernel) + white noise \otimes kernel$$
 
-weighted\ moving\ averaged \ x=input \otimes kernel 
-```
-`$C$`是一个以核为参数的函数，`$white\ nose$`是正则化的均值为0，方差为1的互不相关的数据。
+$$weighted\ moving\ averaged \ x=input \otimes kernel $$
+
+$C$是一个以核为参数的函数，$white\ nose$是正则化的均值为0，方差为1的互不相关的数据。
 
 当我们预处理数据的时候，经常将数据处理为类似 white noise 的形式：将数据移动到均值为 0，将方差调整为 1。我们很少去除数据的相关性，因为计算复杂度高。但是在概念上是很简单的，我们旋转坐标轴以重合数据的特征向量：
 
@@ -289,10 +287,10 @@ weighted\ moving\ averaged \ x=input \otimes kernel
 
 <h3 id="softmax">10. Softmax </h3>
 softmax函数将K维的实数向量压缩成另一个k维的实数向量，其中向量中的每个元素取值都介于(0，1)之间。softmax主要用来做多分类问题，是logistic回归模型在多分类问题上的推广，softmax公式:
-```math
-\sigma(z)_{j}=\frac{e^{z_j}}{\sum_{k=1}^{K}e^{z_k}}
-```
-> 当`$k=2$`时，转换为逻辑回归形式
+
+$$\sigma(z)_{j}=\frac{e^{z_j}}{\sum_{k=1}^{K}e^{z_k}}$$
+
+> 当$k=2$时，转换为逻辑回归形式
 
 softmax一般作为神经网络最后一层，作为输出层进行多分类，softmax的输出的每个值都是>=0，并且其总和为1，所以可以认为其为概率分布。
 
@@ -471,7 +469,7 @@ model.fit(x_train_1, y_train_1,
 
 **交叉熵(Cross-entropy)**就是神经网络中常用的损失函数。交叉熵性质：
 - 非负性
-- 当真实输出 `$a$` 与期望输出 `$y$` 接近的时候，代价函数接近于0.(比如`$y=0,  a\sim 0; y=1, a\sim 1$`时，代价函数都接近 `$0$`)
+- 当真实输出$a$与期望输出 $y$接近的时候，代价函数接近于0.(比如$y=0,  a\sim 0; y=1, a\sim 1$时，代价函数都接近 $0$)
 
 ![image](https://image-1251363007.file.myqcloud.com/2017/02/23/3fc7890d012d45b683e9163a84e9275a.jpeg)
 
@@ -492,7 +490,7 @@ model.fit(x_train_1, y_train_1,
 - **非线性**，当激活函数是线性的时候，一个两层的神经网络就可以逼近基本上所有的函数了。但如果激活函数是恒等激活函数的时候，即`$f(x)=x$`，就不满足这个性质了，而且如果MLP使用的是恒等激活函数，那么其实整个网络跟单层神经网络是等价的。
 - **可微性**，当优化方法是基于梯度的时候，这个性质是必须的
 - **单调性**，当激活函数是单调的时候，单层网络能够保证是凸函数
-- `$f(x)\approx x$`：当激活函数满足这个性质的时候，如果参数的初始化是random的很小的值，那么神经网络的训练将会很高效；如果不满足这个性质，那么需要很用心的去设置初始值。
+- $f(x)\approx x$：当激活函数满足这个性质的时候，如果参数的初始化是random的很小的值，那么神经网络的训练将会很高效；如果不满足这个性质，那么需要很用心的去设置初始值。
 - **输出值的范围**：当激活函数输出值是有限的时候，基于梯度的优化方法会更加稳定，因为特征的表示受有限值的影响更显著；当激活函数的输出是无限的时候，模型的输出会更加高效，不过在这种情况下，一般需要更小的learning rate
 
 #### 激活函数
@@ -502,19 +500,19 @@ model.fit(x_train_1, y_train_1,
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-sigmoid_relu.png)
 
 Sigmoid也称为S形函数，取值范围为(0, 1)。Sigmoid将一个实数映射到(0，1)的区间，可以用来做二分类。Sigmoid在特征相差比较复杂或者相差不大是特别大时效果比较好。Sigmoid是常用的非线性激活函数，他的数学形式如下：
-```math
+$$
 f(x)=\frac{1}{1+e^{-x}}
-```
+$$
 正如前一节提到的，它能够把输入的连续实值“压缩”到0和1之间。如果是，非常大的负数，那么输出就是0，如果是非常大的正数，输出就是1. Sigmoid被使用很多，不过近几年，用它的人越来越少，主要是因为一些**缺点**：
 - Sigmoids saturate and kill gradients: sigmoid 有一个非常致命的缺点，当输入非常大或者非常小的时候（saturation），这些神经元的梯度是接近于0的，从图中可以看出梯度的趋势。所以，你需要尤其注意参数的初始值来尽量避免saturation的情况。如果你的初始值很大的话，大部分神经元可能都会处在saturation的状态而把gradient kill掉，这会导致网络变的很难学习。
-- Sigmoid的output不是0均值，这是不可取的，因为这会导致后一层的神经元将得到上一层输出的非0均值的信号作为输入。产生的一个结果就是：如果数据进入神经元的时候是正的, e.g. `$x>0$`, elementwise in `$f = w^T+b$`, 那么`$w$`计算出的梯度也会始终是正的。
+- Sigmoid的output不是0均值，这是不可取的，因为这会导致后一层的神经元将得到上一层输出的非0均值的信号作为输入。产生的一个结果就是：如果数据进入神经元的时候是正的, e.g. $x>0$, elementwise in $f = w^T+b$, 那么$w$计算出的梯度也会始终是正的。
 
 ##### tanh
 
 tanh是上图中的右图，可以看出，tanh跟sigmoid还是很相似的，实际上，tanh是sigmoid的变形：
-```math
+$$
 tanh(x)=2*sigmoid(2x)-1
-```
+$$
 与sigmoid不同的是，tanh是0均值的，因此，实际应用中，tanh会比sigmoid更好
 
 ##### ReLU
@@ -522,11 +520,10 @@ tanh(x)=2*sigmoid(2x)-1
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-relu.png)
 
 近年来，ReLU变得越来越受欢迎，它的数学表达式如下：
-```math
+$$
 f(x)=max(0, x)
-```
-
-很显然，从图左可以看出，输入信号<0时，输出都是0，输入大于零的情况下，输出等于输入。`$w$`是二维的情况下，使用ReLU之后的效果图如下：
+$$
+很显然，从图左可以看出，输入信号<0时，输出都是0，输入大于零的情况下，输出等于输入。$w$是二维的情况下，使用ReLU之后的效果图如下：
 
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-relu-perf.png)
 
@@ -542,13 +539,15 @@ ReLU 的缺点就是训练的时候很”脆弱”，很容易就”die”，也
 **Leaky-ReLU**
 
 leaky-ReLU就是来解决“dying ReLU”的问题的，与ReLU不同的是：
-```math
+$$
 f(x)=ax, \ (x<0)
-```
-```math
+$$
+
+$$
 f(x)=x, \ (x>=0)
-```
-在这里，`$a$`是一个很小的常数，这样，即修正了数据分布，又保留了一些负轴的值，使得负轴信息不会全部丢失。
+$$
+
+在这里，$a$是一个很小的常数，这样，即修正了数据分布，又保留了一些负轴的值，使得负轴信息不会全部丢失。
 
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-leaky.png)
 
@@ -556,23 +555,22 @@ f(x)=x, \ (x>=0)
 
 **P-ReLU**
 
-Parametric ReLU: 对于Leaky ReLU中的 `$a$`, 通常是通过先验知识人工赋值的。然而可以观察到，损失函数对α的导数我们是可以求得的，可不可以将它作为一个参数进行训练呢？ 
+Parametric ReLU: 对于Leaky ReLU中的 $a$, 通常是通过先验知识人工赋值的。然而可以观察到，损失函数对α的导数我们是可以求得的，可不可以将它作为一个参数进行训练呢？ 
 
 Kaiming He的论文《Delving Deep into Rectifiers: Surpassing Human-Level Performance on ImageNet Classification》指出，不仅可以训练，而且效果更好。原文说使用了Parametric ReLU后，最终效果比不用提高了1.03%.
 
 **R-ReLU**
 
-Random ReLU是leaky ReLU的random版本，也就是 `$a$` 是random的，它首次在kaggle的NDSB比赛中被提出的。
+Random ReLU是leaky ReLU的random版本，也就是 $a$ 是random的，它首次在kaggle的NDSB比赛中被提出的。
 
-核心思想就是，在训练过程中， `$a$` 是从高斯缝补 `$U(l,u)$`中随机出来的，然后再测试过程中进行修正。数学表示如下：
+核心思想就是，在训练过程中， $a$ 是从高斯缝补 $U(l,u)$中随机出来的，然后再测试过程中进行修正。数学表示如下：
 
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-rrelu.png)
 
-在测试阶段，把训练过程中所有的 `$a_{ij}$` 取个平均值。NDSB冠军的 `$a$` 是从 `$U(3,8)$` 中随机出来的，那么在测试阶段，激活函数就是：
-```math
+在测试阶段，把训练过程中所有的 $a_{ij}$ 取个平均值。NDSB冠军的 $a$ 是从 $U(3,8)$ 中随机出来的，那么在测试阶段，激活函数就是：
+$$
 y_{ij} = \frac{x_{ij}}{\frac{l+u}{2}}
-```
-
+$$
 看看cifar-100中的实验结果:
 
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-per.png)
@@ -582,14 +580,14 @@ y_{ij} = \frac{x_{ij}}{\frac{l+u}{2}}
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-mm.png)
 
 Maxout出现在ICML2013上，作者Goodfellow将maxout和dropout结合后，号称在MNIST, CIFAR-10, CIFAR-100, SVHN这4个数据上都取得了start-of-art的识别率。Maxout 公式如下： 
-```math
+$$
 f_i(x)=max_{j\in [1,k]}z_{ij}
-```
-假设 `$w$` 是2维，那么有：
-```math
+$$
+假设 $w$ 是2维，那么有：
+$$
 f(x)=max(w_1^Tx+b_1, w_2^Tx+b_2)
-```
-可以注意到，ReLU和Leaky ReLU都是它的一个变形，比如，`$w_1, \ b_1=0$` 的时候，就是ReLU.
+$$
+可以注意到，ReLU和Leaky ReLU都是它的一个变形，比如，$w_1, \ b_1=0$ 的时候，就是ReLU.
 
 Maxout的拟合能力是非常强的，它可以拟合任意的的凸函数。作者从数学的角度上也证明了这个结论，即只需2个maxout节点就可以拟合任意的凸函数了（相减），前提是”隐隐含层”节点的个数可以任意多。
 
@@ -603,9 +601,9 @@ Maxout的拟合能力是非常强的，它可以拟合任意的的凸函数。�
 ![image](http://7pn4yt.com1.z0.glb.clouddn.com/blog-ac2.png)
 
  #### 如何选用激活函数?
- 
+
 注意事项：
- 
+
 1. 如果你使用 ReLU，那么一定要小心设置 learning rate，而且要注意不要让你的网络出现很多 “dead” 神经元，如果这个问题不好解决，那么可以试试 Leaky ReLU、PReLU 或者 Maxout.
 
 2. 最好不要用 sigmoid，你可以试试 tanh，不过可以预期它的效果会比不上 ReLU 和 Maxout.
