@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "太阳雨"
-date: 2014-08-12 02:25:00 +0800
+date: 2014-8-12 02:25:00 +0800
 categories: Life
 ---
 

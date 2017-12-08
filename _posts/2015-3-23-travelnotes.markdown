@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "无题的游记"
-date: 2015-03-23 07:38:00 +0800
+date: 2015-3-23 07:38:00 +0800
 categories: Life
 ---
 

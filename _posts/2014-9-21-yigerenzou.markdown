@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Yi ge ren zou"
-date: 2014-09-021 06:03:00 +0800
+date: 2014-9-21 06:03:00 +0800
 categories: Life
 ---
 

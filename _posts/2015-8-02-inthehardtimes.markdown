@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "在困难的日子里"
-date: 2015-08-02 22:02:00 +0800
+date: 2015-8-02 22:02:00 +0800
 categories: Life
 ---
 

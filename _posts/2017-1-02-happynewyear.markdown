@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "2016,我很感激你"
-date: 2017-01-02 22:34:00 +0800
+date: 2017-1-02 22:34:00 +0800
 categories: Life
 ---
 

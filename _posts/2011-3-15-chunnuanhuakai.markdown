@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "春暖花开说再见"
-date: 2011-03-15 11:28:20 +0800
+date: 2011-3-15 11:28:20 +0800
 categories: Life
 ---
 

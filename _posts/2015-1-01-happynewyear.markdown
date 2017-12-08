@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "片刻2014"
-date: 2015-01-01 00:33:00 +0800
+date: 2015-1-01 00:33:00 +0800
 categories: Life
 ---
 
