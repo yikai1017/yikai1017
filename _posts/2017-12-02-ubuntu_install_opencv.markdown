@@ -1,8 +1,8 @@
+---
 layout: post
 title:  "【深度学习】在Ubuntu16.04下安装OpenCV 3.3"
 date: 2017-12-02 16:00:26 +0800
 categories: Machinelearning
-
 ---
 
 ### Contents

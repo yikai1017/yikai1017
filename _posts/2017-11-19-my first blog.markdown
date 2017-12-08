@@ -2,7 +2,7 @@
 layout: post
 title:  "在Windows环境下搭建Github博客"
 date: 2017-11-23 19:06:26 +0800
-categories: Jekyll, Blog
+categories: Blog
 ---
 
 > 前沿：
